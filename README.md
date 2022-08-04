@@ -1,4 +1,4 @@
-# Projeto 7DaysOfCode Lógica JS
+# 7DaysOfCode Lógica JS
 
-> Rafa Ballerini Instrutora Front-End na Alura
+> Projeto *7DaysOfCode* da Plataforma Alura por Rafa Ballerini Instrutora Front-End na Alura
 
