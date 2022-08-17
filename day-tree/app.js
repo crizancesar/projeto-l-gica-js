@@ -12,8 +12,11 @@ let dataUser = {
     fullstack: null,
     techFullstack: null,
     learnMore: null,
-    arrayTechs: []
+    arrayTechs: ['Depois irá aprender:']
 }
+
+const inputData = document.querySelector('.input')
+const buttonSubmit = document.querySelector('.button')
 
 const mainContainer = document.querySelectorAll('.main');
 document.querySelector('.start').addEventListener('click', () => {
@@ -33,26 +36,28 @@ function startResearch() {
             startResearch();
         };
     }
-    if (dataUser.tech === null && dataUser.career === questionResearch[0][1]) {
-        makeQuestion(1);
-        mainContainer[1].onclick = () => {
-            dataUser.tech = mainContainer[1].innerText;
-            startResearch();
-        }
-        mainContainer[2].onclick = () => {
-            dataUser.tech = mainContainer[2].innerText;
-            startResearch();
-        }
-    }
-    if (dataUser.tech === null && dataUser.career === questionResearch[0][2]) {
-        makeQuestion(2);
-        mainContainer[1].onclick = () => {
-            dataUser.tech = mainContainer[1].innerText;
-            startResearch();
-        }
-        mainContainer[2].onclick = () => {
-            dataUser.tech = mainContainer[2].innerText;
-            startResearch();
+    if (dataUser.tech === null) {
+        if (dataUser.career === questionResearch[0][1]) {
+            makeQuestion(1);
+            mainContainer[1].onclick = () => {
+                dataUser.tech = mainContainer[1].innerText;
+                startResearch();
+            }
+            mainContainer[2].onclick = () => {
+                dataUser.tech = mainContainer[2].innerText;
+                startResearch();
+            }
+        } 
+        if (dataUser.career === questionResearch[0][2]) {
+            makeQuestion(2);
+            mainContainer[1].onclick = () => {
+                dataUser.tech = mainContainer[1].innerText;
+                startResearch();
+            }
+            mainContainer[2].onclick = () => {
+                dataUser.tech = mainContainer[2].innerText;
+                startResearch();
+            }
         }
     }
     if (dataUser.fullstack === null && dataUser.tech !== null) {
@@ -69,11 +74,11 @@ function startResearch() {
     if (dataUser.techFullstack === null && dataUser.fullstack === questionResearch[3][1]) {
         makeQuestion(4);
         mainContainer[1].onclick = () => {
-            dataUser.learnMore = true;
+            dataUser.learnMore = questionResearch[4][1];
             startResearch();
         }
         mainContainer[2].onclick = () => {
-            dataUser.learnMore = false;
+            dataUser.learnMore = questionResearch[4][2];
             startResearch();
         }
     }
@@ -103,26 +108,28 @@ function startResearch() {
     if (dataUser.techFullstack !== null && dataUser.fullstack === questionResearch[3][2]) {
         makeQuestion(4)
         mainContainer[1].onclick = () => {
-            dataUser.learnMore = true;
+            dataUser.learnMore = questionResearch[4][1];
             startResearch();
         }
         mainContainer[2].onclick = () => {
-            dataUser.learnMore = false;
+            dataUser.learnMore = questionResearch[4][2];
             startResearch();
         }      
     }
-    if (dataUser.learnMore === true) {
-        dataUser.arrayTechs.push(prompt('Digite a tecnologia que pretende aprender:'));
+    if (dataUser.learnMore === questionResearch[4][1]) {
+        inputTechs();
     }
-    if (dataUser.learnMore === false) {
+    if (dataUser.learnMore === questionResearch[4][2]) {
         showResult(dataUser);
     }
 }
 
 function showResult(data) {
+    inputData.classList.add('hide')
+    buttonSubmit.classList.add('hide')
     const sectionContainer = document.querySelector('.container');
     sectionContainer.innerHTML = `<p class="text">
-        Você irá seguir a carreira de ${data.career}, com a tecnologia ${data.tech}
+        Você irá seguir a carreira de ${data.career}, com a tecnologia ${data.tech}<br>${data.arrayTechs}
     </p>`;
 }
 
@@ -130,6 +137,16 @@ function makeQuestion(q) {
     for (let i = 0; i < mainContainer.length; i++) {
         mainContainer[i].classList.remove('hide');
         mainContainer[i].innerText = (questionResearch[q][i]);
+    }
+}
+
+ function inputTechs() {
+    inputData.classList.remove('hide')
+    buttonSubmit.classList.remove('hide')
+    buttonSubmit.onclick = () => {
+        dataUser.arrayTechs.push(inputData.value);
+        inputData.value = '';
+        inputData.focus();
     }
 }
 

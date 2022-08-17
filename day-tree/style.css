@@ -17,6 +17,11 @@ body {
     text-align: center;
 }
 
+.input, .button {
+    display: inline-block;
+    
+}
+
 .option {
     width: 15rem;
     height: 3rem;
